@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url(../../public/images/background.jpg);
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .main {
+            color: white;
+            position: absolute;
+            bottom: 80px;
+            left: 100px;
+            font-size: 80px;
+        }
+        .regis-container {
+            width: 500px;
+            height: 600px;
+            padding: 30px 0 0;
+            position: absolute;
+            right: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            gap: 30px;
+        }
+        .regis-container h1 {
+            color: #000000;
+            font-weight: 600;
+            margin-top: 40px;
+        }
+        .regis-box {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .nextLevel {
+            margin: auto;
+        }
+        .nextLevel img {
+            width: 50px;
+            border: 2px solid #c9c2c2;
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .nextLevel img.active {
+            background-color: #d13639;
+            border: 2px solid #d13639;
+        }
+        .pagenation {
+            position: absolute;
+            top: -20px;
+            right: 0;
+            display: flex;
+            gap: 10px;
+        }
+        .pagenation span {
+            width: 50px;
+            height: 5px;
+            background-color: #acacac;
+            display: block;
+        }
+        .pagenation span:nth-child(3) {
+            background-color: #d35658;
+        }
+        .infoBox {
+            display: flex;
+            flex-direction: column;
+        }
+        .infoBox p {
+            margin:  0;
+        }
+        .inputBox {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background-color: #ececec;
+            border-radius: 5px;
+            box-sizing: content-box;
+        }
+        .inputBox.active {
+            border: 3px solid #e8bdec;
+            background-color: #f3e3f4;
+        }
+        .inputBox img {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-right: 15px;
+            opacity: .6;
+        }
+        .inputBox input{
+            height: 60px;
+            background-color: inherit;
+            border-radius: 5px;
+            text-indent: 3px;
+            width: 400px;
+            display: flex;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            outline: none;
+            border: 0;
+            text-indent: 10px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        .inputBox input::placeholder {
+            font-weight: 600;
+            font-size: 16px;
+            font-family: 'Noto Sans KR', sans-serif;
+            text-indent: 10px;
+            opacity: .6;
+        }
+        .inputBox p {
+            margin-left: 15px;
+            font-weight: 700;
+            color: #acacac;
+        }
+        .exBox {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="main">라이엇 계정 생성</h1>
+    <div class="regis-container">
+        <div class="pagenation">
+            <span class="page1"></span>
+            <span class="page2"></span>
+            <span class="page3"></span>
+            <span class="page4"></span>
+        </div>
+        <h1>아이디/비밀번호 입력</h1>
+        <div class="regis-box">
+            <div class="userIdBox infoBox">
+                <div class="inputBox">
+                    <input type="text" id="userId" placeholder="아이디" onfocus="this.placeholder=''" onblur="this.placeholder='아이디'" autocomplete="off">
+                </div>
+                <div class="exBox">
+                    <img src="../../public/images/hint.d9f850c6.svg" alt="">
+                    <p>영문으로 시작하는 4~24자의 영문+숫자로 입력해주세요.</p>
+                </div>
+            </div>
+            <div class="userPwdBox infoBox">
+                <div class="inputBox">
+                    <input type="password" id="userPwd" placeholder="비밀번호" onfocus="this.placeholder=''" onblur="this.placeholder='비밀번호'" autocomplete="off">
+                    <img src="../../public/images/eye.png" alt="" draggable="false">
+                </div>
+            </div>
+            <div class="rePwdBox infoBox">
+                <div class="inputBox">
+                    <input type="password" id="rePwd" placeholder="비밀번호 확인" onfocus="this.placeholder=''" onblur="this.placeholder='비밀번호 확인'" autocomplete="off">
+                    <img src="../../public/images/eye.png" alt="" draggable="false">
+                </div>
+                <div class="exBox">
+                    <img src="../../public/images/hint.d9f850c6.svg" alt="">
+                    <p>8자리 이상의 영문, 숫자, 특수문자 조합을 입력하세요.</p>
+                </div>
+            </div>
+            <div class="nextLevel">
+                <img src="../../public/images/arrow-right-disabled.aebb2ba5.svg" alt="">
+            </div>
+        </div>
+    </div>
+    <script>
+        const userid = document.querySelector('.userIdBox input');
+        const pwd = document.querySelector('.userPwdBox input');
+        const rePwd = document.querySelector('.rePwdBox input');
+        const viewPwds = document.querySelectorAll('.inputBox img');
+        let idSwitch = false;
+        let pwdSwitch = false;
+
+        viewPwds.forEach(viewPwd=>{
+            viewPwd.addEventListener('mousedown',function(){
+                this.previousElementSibling.type = 'text'
+                this.style.opacity = 1
+            })
+            viewPwd.addEventListener('mouseup',function(){
+                this.previousElementSibling.type = 'password'
+                this.style.opacity = .6
+            })
+        })
+        userId.addEventListener('keyup',function(){
+            if(userId.value == ''){
+                this.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/error.a31227d0.svg')
+                this.parentNode.nextElementSibling.childNodes[3].innerHTML = '값을 입력해 주세요.'
+                this.parentNode.classList.add('active');
+                nextBtn.classList.remove('active');
+                idSwitch = false;
+            }else if(userId.value.length > 0  && !(/^\w/img).test(userId.value)){
+                this.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/error.a31227d0.svg')
+                this.parentNode.nextElementSibling.childNodes[3].innerHTML = '영문으로 시작하는 영문+숫자 조합이어야 합니다.'
+                this.parentNode.classList.add('active');
+                nextBtn.classList.remove('active');
+                idSwitch = false;
+            }else if(userId.value.length < 4){
+                this.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/error.a31227d0.svg')
+                this.parentNode.nextElementSibling.childNodes[3].innerHTML = '4자 이상 24자 이하로 입력해 주세요.'
+                this.parentNode.classList.add('active');
+                nextBtn.classList.remove('active');
+                idSwitch = false;
+            }else if(userId.value.length > 0  && (/^\w[a-z0-9]{3,22}/img).test(userId.value)){
+                this.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/hint.d9f850c6.svg')
+                this.parentNode.nextElementSibling.childNodes[3].innerHTML = '영문으로 시작하는 4~24자의 영문+숫자로 입력해주세요.'
+                this.parentNode.classList.remove('active');
+                idSwitch = true;
+                if(idSwitch == 1&& pwdSwitch == 1){
+                    nextBtn.classList.add('active');
+                }
+            }
+        })
+        pwd.addEventListener('keyup',function(){
+            if(this.value == ''){
+                this.parentNode.classList.add('active');
+            }else if(this.value.length < 8){
+                rePwd.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/error.a31227d0.svg')
+                rePwd.parentNode.nextElementSibling.childNodes[3].innerHTML = '8자 이상 입력해 주세요.'
+                this.parentNode.classList.add('active');
+                nextBtn.classList.remove('active');
+            }else if(this.value != rePwd.value){
+                rePwd.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/error.a31227d0.svg')
+                rePwd.parentNode.nextElementSibling.childNodes[3].innerHTML = '비밀번호가 일치하지 않습니다.'
+                nextBtn.classList.remove('active');
+            }else if(this.value == rePwd.value && !(/(?=.*[%$@!`#%\^&*()])/).test(this.value)){
+                rePwd.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/error.a31227d0.svg')
+                rePwd.parentNode.nextElementSibling.childNodes[3].innerHTML = '특수문자를 반드시 포함해야 합니다.'
+                nextBtn.classList.remove('active');
+            }else if(this.value == pwd.value&&(/(?=.*[%$@!`#%\^&*()])/).test(this.value)){
+                rePwd.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/hint.d9f850c6.svg')
+                rePwd.parentNode.nextElementSibling.childNodes[3].innerHTML = '8자리 이상의 영문, 숫자, 특수문자 조합을 입력하세요.'
+                this.parentNode.classList.remove('active');
+                rePwd.parentNode.classList.remove('active');
+                pwdSwitch = true;
+                if(idSwitch&& pwdSwitch){
+                    nextBtn.classList.add('active');
+                }
+            }
+        })
+        rePwd.addEventListener('keyup',function(){
+            if(this.value == ''){
+                this.parentNode.classList.add('active');
+                this.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/error.a31227d0.svg')
+                this.parentNode.nextElementSibling.childNodes[3].innerHTML = '값을 입력해 주세요.'
+                nextBtn.classList.remove('active');
+                pwdSwitch = false;
+            }else if(this.value.length < 7){
+                this.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/error.a31227d0.svg')
+                this.parentNode.nextElementSibling.childNodes[3].innerHTML = '8자 이상 입력해 주세요.'
+                nextBtn.classList.remove('active');
+                pwdSwitch = false;
+            }else if(this.value.length >0 && this.value != pwd.value){
+                this.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/error.a31227d0.svg')
+                this.parentNode.nextElementSibling.childNodes[3].innerHTML = '비밀번호가 일치하지 않습니다.'
+                nextBtn.classList.remove('active');
+                pwdSwitch = false;
+            }else if(this.value == pwd.value && !(/(?=.*[%$@!`#%\^&*()])/).test(this.value)){
+                this.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/error.a31227d0.svg')
+                this.parentNode.nextElementSibling.childNodes[3].innerHTML = '특수문자를 반드시 포함해야 합니다.'
+                nextBtn.classList.remove('active');
+                pwdSwitch = false;
+            }else if(this.value == pwd.value&&(/(?=.*[%$@!`#%\^&*()])/).test(this.value)){
+                this.parentNode.nextElementSibling.childNodes[1].setAttribute('src','../../public/images/hint.d9f850c6.svg')
+                this.parentNode.nextElementSibling.childNodes[3].innerHTML = '8자리 이상의 영문, 숫자, 특수문자 조합을 입력하세요.'
+                this.parentNode.classList.remove('active');
+                pwd.parentNode.classList.remove('active');
+                pwdSwitch = true;
+                console.log(idSwitch,pwdSwitch)
+                if(idSwitch&& pwdSwitch){
+                    nextBtn.classList.add('active');
+                }
+            }
+        })
+
+
+        const nextBtn = document.querySelector('.nextLevel img')
+
+        nextBtn.addEventListener('click',function(){
+            if(idSwitch&&pwdSwitch){
+                const userInfo = {
+                    userId : userid.value,
+                    Pwd : pwd.value
+                }
+                console.log(userInfo)
+                const url = 'http://localhost:3000/register/userInfo2';
+                fetch(url, {
+                    method: 'POST', 
+                    body:JSON.stringify(userInfo),
+                    headers : {'Content-Type':'application/json;charset=utf-8'}
+                })
+                .then(res=>res.json())
+                .then(res=>console.log(res))
+                location.href = '/register/userInfo3'
+            }else if(!idSwitch || !pwdSwitch){
+                alert('아이디 또는 비밀번호를 양식에 맞게 입력해주세요.')
+            }
+        })
+    </script>
+</body>
+</html>

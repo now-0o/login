@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .regis-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50vh;
+            transform: translateY(-50%);
+            align-items: center;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .regisBtn, .loginBtn {
+            display: block;
+            width: 300px;
+            height: 80px;
+            background-color: rgb(123, 146, 223);
+            border-radius: 20px;
+            padding: 5p;
+            line-height: 80px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+        }
+        .regisBtn:hover, .loginBtn:hover {
+            background-color: rgb(93, 113, 180);
+        }
+    </style>
+</head>
+<body>
+    <div class="regis-container">
+        <span class="regisBtn">회원가입</span>
+        <span class="loginBtn">로그인</span>
+    </div>
+    <script>
+        const regisBtn = document.querySelector('.regisBtn');
+        regisBtn.addEventListener('click',()=>{
+            location.href = '/register';
+        })
+    </script>
+</body>
+</html>

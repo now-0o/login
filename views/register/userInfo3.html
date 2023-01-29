@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url(../../public/images/background.jpg);
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .main {
+            color: white;
+            position: absolute;
+            bottom: 80px;
+            left: 100px;
+            font-size: 80px;
+        }
+        .regis-container {
+            width: 500px;
+            height: 600px;
+            padding: 30px 0 0;
+            position: absolute;
+            right: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            gap: 90px;
+        }
+        .regis-container h1 {
+            color: #000000;
+            font-weight: 600;
+            margin-top: 40px;
+        }
+        .regis-box {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+        .nextLevel {
+            margin: auto;
+        }
+        .nextLevel img {
+            width: 50px;
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            background-color: #d13639;
+        }
+        .pagenation {
+            position: absolute;
+            top: -20px;
+            right: 0;
+            display: flex;
+            gap: 10px;
+        }
+        .pagenation span {
+            width: 50px;
+            height: 5px;
+            background-color: #acacac;
+            display: block;
+        }
+        .pagenation span:nth-child(4) {
+            background-color: #d35658;
+        }
+        .idBox {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .idBox h1,h2,h3 {
+            font-weight: 500;
+            margin: 5px 0;
+        }
+        .idBox h2 {
+            margin: 0;
+            font-weight: 700;
+            color: #d13639;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <h1 class="main">라이엇 계정 생성</h1>
+    <div class="regis-container">
+        <div class="pagenation">
+            <span class="page1"></span>
+            <span class="page2"></span>
+            <span class="page3"></span>
+            <span class="page4"></span>
+        </div>
+        <h1>아이디/비밀번호 입력</h1>
+        <div class="regis-box">
+            <div class="idBox">
+                <h1>계정 생성 완료</h1>
+                <h3>계정 ID<h3>
+                <h2 class="id"></h2>
+            </div>
+            <div class="nextLevel">
+                <img src="../../public/images/arrow-right-disabled.aebb2ba5.svg" alt="">
+            </div>
+        </div>
+    </div>
+    <script>
+        const nextBtn = document.querySelector('.nextLevel');
+        fetch('http://localhost:3000/userInfo').then(res=>res.json())
+        .then(res=>{
+            const hId = document.querySelector('.id');
+
+            hId.innerHTML = res.userId;
+        })
+        nextBtn.addEventListener('click',()=>{
+            location.href = '/'
+        })
+    </script>
+</body>
+</html>

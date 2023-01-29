@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url(../public/images/background.jpg);
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .main {
+            color: white;
+            position: absolute;
+            bottom: 80px;
+            left: 100px;
+            font-size: 80px;
+        }
+        .regis-container {
+            width: 500px;
+            height: 600px;
+            padding: 30px 0 0;
+            position: absolute;
+            right: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            gap: 80px;
+        }
+        .regis-container h1 {
+            color: #000000;
+            font-weight: 600;
+            margin-top: 70px;
+        }
+        .regis-box {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        input {
+            display: none;
+        }
+        input + label {
+            cursor: pointer;
+        }
+        input + label:before{
+            content:"";
+            display:inline-block;
+            width:20px;
+            height:20px;
+            background-color: rgb(218, 218, 218);
+            border-radius: 4px;
+            vertical-align:middle;
+            margin-right: 10px;
+        }
+        input:checked + label:before{
+            content:"";
+            background-color:#d35658;
+            background-image: url(../public/images/checkmark.2a171829.svg);
+            background-repeat: no-repeat;
+            background-size: 13px;
+            background-position: center 2.2px;
+        }
+        .check {
+            font-size: 22px;
+            color: #6b1c1d;
+        }
+        .nextLevel {
+            margin: auto;
+        }
+        .nextLevel img {
+            width: 50px;
+            border: 2px solid #c9c2c2;
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 50px;
+            cursor: pointer;
+        }
+        .nextLevel img.active {
+            background-color: #d13639;
+            border: transparent;
+        }
+        .pagenation {
+            position: absolute;
+            top: -20px;
+            right: 0;
+            display: flex;
+            gap: 10px;
+        }
+        .pagenation span {
+            width: 50px;
+            height: 5px;
+            background-color: #acacac;
+            display: block;
+        }
+        .pagenation span:nth-child(1) {
+            background-color: #d35658;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="main">라이엇 계정 생성</h1>
+    <div class="regis-container">
+        <div class="pagenation">
+            <span class="page1"></span>
+            <span class="page2"></span>
+            <span class="page3"></span>
+            <span class="page4"></span>
+        </div>
+        <h1>서비스 약관에 동의해 주세요.</h1>
+        <div class="regis-box">
+            <div class="check c1">
+                <input type="checkbox" id="service">
+                <label for="service">라이엇 게임즈 서비스 약관에 동의 (필수)</label>
+            </div>
+            <div class="check c2">
+                <input type="checkbox" id="userInfo">
+                <label for="userInfo">개인정보 수집 및 이용에 동의 (필수)</label>
+            </div>
+            <div class="check c3">
+                <input type="checkbox" id="userBoard">
+                <label for="userBoard">개인정보 국외 이전에 동의 (필수)</label>
+            </div>
+            <div class="nextLevel">
+                <img src="../public/images/arrow-right-disabled.aebb2ba5.svg" alt="">
+            </div>
+        </div>
+    </div>
+    <script>
+        const check1 = document.querySelector('.c1 input');
+        const check2 = document.querySelector('.c2 input');
+        const check3 = document.querySelector('.c3 input');
+        const nextBtn = document.querySelector('.nextLevel');
+        check1.addEventListener('click',()=>{
+            if(check1.checked&&check2.checked&&check3.checked){
+                nextBtn.childNodes[1].classList.add('active');
+            }else {
+                nextBtn.childNodes[1].classList.remove('active');
+            }
+        })
+        check2.addEventListener('click',()=>{
+            if(check1.checked&&check2.checked&&check3.checked){
+                nextBtn.childNodes[1].classList.add('active'); 
+            }else {
+                nextBtn.childNodes[1].classList.remove('active');
+            }
+        })
+        check3.addEventListener('click',()=>{
+            if(check1.checked&&check2.checked&&check3.checked){
+                nextBtn.childNodes[1].classList.add('active');
+            }else {
+                nextBtn.childNodes[1].classList.remove('active');
+            }
+        })
+        nextBtn.addEventListener('click',()=>{
+            if(check1.checked&&check2.checked&&check3.checked){
+                location.href = '/register/userInfo1';
+
+            }else {
+                alert('약관에 동의 해주세요.')
+            }
+        })
+
+    </script>
+</body>
+</html>
